@@ -1,0 +1,6 @@
+# Style Skill: Manus.im Inspiration
+- **Aesthetic**: Ultra-minimalist, absolute black background (#000000).
+- **Typography**: Clean hierarchy, tight tracking, subtle grey for subtitles.
+- **Visuals**: 1px borders (white/10), subtle glassmorphism (backdrop-blur).
+- **Motion**: Use Framer Motion for smooth, cinematic entrance animations.
+- **Components**: No rounded corners (use sharp edges or very small radius like rounded-sm).
