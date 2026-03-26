@@ -21,3 +21,52 @@ body {
   background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
 }
+
+@layer utilities {
+  .text-ember {
+    background: linear-gradient(to right, #FF4500, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.4));
+    animation: ember-flicker 4s infinite alternate ease-in-out;
+  }
+
+  .glow-border {
+    position: relative;
+    border: 1px solid rgba(255, 69, 0, 0.1);
+    transition: border-color 0.3s ease;
+  }
+
+  .glow-border:hover {
+    border-color: rgba(255, 69, 0, 0.3);
+  }
+}
+
+@keyframes ember-flicker {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.3)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.6)) brightness(1.2);
+  }
+}
+
+@keyframes pulsing-brasa {
+  0% { 
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.4);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 25px rgba(255, 69, 0, 0.7), 0 0 40px rgba(255, 69, 0, 0.3);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.4);
+    transform: scale(1);
+  }
+}
+
+.pulsing-glow {
+  animation: pulsing-brasa 2s infinite ease-in-out;
+}

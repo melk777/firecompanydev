@@ -26,23 +26,23 @@ export default function EmberCursor() {
     if (now - lastSpawnRef.current < 16) return;
     lastSpawnRef.current = now;
 
-    // Apenas 1 a 2 partículas por vez para não poluir
-    const count = 1 + Math.floor(Math.random() * 2);
+    // Aumentar levemente o count para um rastro mais denso
+    const count = 2 + Math.floor(Math.random() * 3);
     for (let i = 0; i < count; i++) {
       particlesRef.current.push({
-        x: x + (Math.random() - 0.5) * 6,
-        y: y + (Math.random() - 0.5) * 6,
-        vx: (Math.random() - 0.5) * 2,
-        vy: -(Math.random() * 2 + 1), // Move rápido para cima
+        x: x + (Math.random() - 0.5) * 10,
+        y: y + (Math.random() - 0.5) * 10,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: -(Math.random() * 3 + 1), // Move um pouco mais rápido para cima
         life: 1,
-        maxLife: 0.3 + Math.random() * 0.4, // Ciclo de vida estendido levemente
-        size: 0.5 + Math.random() * 1.5, // Fagulhas bem pequenas
-        hue: 10 + Math.random() * 30, // Laranja a vermelho (10 a 40 hsl hue)
+        maxLife: 0.4 + Math.random() * 0.6, // Vida levemente mais longa
+        size: 0.8 + Math.random() * 2, // Partículas variadas
+        hue: 15 + Math.random() * 25, // Laranja mais focado
       });
     }
 
-    if (particlesRef.current.length > 120) {
-      particlesRef.current = particlesRef.current.slice(-100);
+    if (particlesRef.current.length > 200) {
+      particlesRef.current = particlesRef.current.slice(-180);
     }
   }, []);
 

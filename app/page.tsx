@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 import Navbar from "./components/Navbar";
 import EmberCursor from "./components/EmberCursor";
+import PortfolioSection from "./components/PortfolioSection";
+import LeadSection from "./components/LeadSection";
 import { Globe, Building2, PenTool, Smartphone } from "lucide-react";
 
 const subtitleText = "Inteligência Artificial & Desenvolvimento de Elite";
@@ -41,28 +43,6 @@ export default function Home() {
     }
   };
 
-  const services = [
-    {
-      title: "Sistemas Web",
-      icon: Globe,
-      desc: "Plataformas robustas, escaláveis e ultrarrápidas, desenhadas para expansão contínua.",
-    },
-    {
-      title: "Soluções Corporativas",
-      icon: Building2,
-      desc: "Arquiteturas sob medida, suportando alta carga e integridade absoluta na nuvem.",
-    },
-    {
-      title: "Design Inteligente",
-      icon: PenTool,
-      desc: "Interfaces limpas e objetivas. Foco central na conversão e conveniência do usuário.",
-    },
-    {
-      title: "Apps Mobile",
-      icon: Smartphone,
-      desc: "Aplicações de performance nativa construídas para fluidez e engajamento móvel.",
-    },
-  ];
 
   return (
     <main className="relative isolate min-h-screen overflow-x-hidden bg-[#020202] text-white">
@@ -99,13 +79,7 @@ export default function Home() {
               delay: 1,
             },
           }}
-          className="mb-6 font-sans text-5xl font-black leading-[1.05] tracking-[-0.05em] sm:text-7xl md:text-8xl lg:text-9xl relative z-10"
-          style={{
-            backgroundImage: "linear-gradient(to right, #FF4500, #FFD700)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-            backgroundClip: "text",
-          }}
+          className="mb-6 font-sans text-5xl font-black leading-[1.05] tracking-[-0.05em] sm:text-7xl md:text-8xl lg:text-9xl relative z-10 text-ember"
         >
           FireFozDev
         </motion.h1>
@@ -205,31 +179,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ═══════════════ SERVIÇOS DE ELITE (BENTO GRID COM SPOTLIGHT) ═══════════════ */}
-      <section id="servicos" className="relative px-6 py-32 md:py-48">
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="mb-24 text-center md:text-left"
-          >
-            <h2 className="text-4xl font-black tracking-[-0.05em] text-white sm:text-6xl">
-              Serviços de Elite.
-            </h2>
-            <p className="mt-6 text-sm font-light uppercase tracking-widest text-[#a1a1a1]">
-              Engenharia de ponta a ponta
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {services.map((service, index) => (
-              <SpotlightCard key={service.title} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <PortfolioSection />
+      <LeadSection />
 
       {/* ═══════════════ FOOTER ═══════════════ */}
       <footer className="border-t border-white/5 bg-[#020202] px-6 py-24">
@@ -338,51 +289,3 @@ export default function Home() {
   );
 }
 
-// Sub-componente Spotlight Card para isolar a lógica do mouse e o visual premium
-function SpotlightCard({ service, index }: { service: any; index: number }) {
-  const divRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!divRef.current) return;
-    const rect = divRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  const Icon = service.icon;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-      ref={divRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setOpacity(1)}
-      onMouseLeave={() => setOpacity(0)}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/5 bg-white/[0.015] p-8 shadow-inner backdrop-blur-md transition-colors hover:bg-white/[0.03]"
-    >
-      {/* Efeito Spotlight (Feixe de luz laranja movendo-se com o mouse) */}
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300"
-        style={{
-          opacity,
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(255,69,0,0.15), transparent 40%)`,
-        }}
-      />
-
-      <div className="mb-8 mt-2 inline-flex text-white/30 transition-colors duration-500 group-hover:text-[#FF4500]">
-        <Icon strokeWidth={1.5} size={36} />
-      </div>
-
-      <h3 className="mb-3 text-xl font-bold tracking-[-0.03em] text-white/90">
-        {service.title}
-      </h3>
-      <p className="text-sm font-light leading-relaxed text-[#8a8a8a]">
-        {service.desc}
-      </p>
-    </motion.div>
-  );
-}
