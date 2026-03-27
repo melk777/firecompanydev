@@ -1,14 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import Navbar from "./components/Navbar";
-import EmberCursor from "./components/EmberCursor";
 import PortfolioSection from "./components/PortfolioSection";
 import LeadSection from "./components/LeadSection";
+import TrustedBy from "./components/TrustedBy";
+import StepForm from "./components/StepForm";
+import AppShowcase from "./components/AppShowcase";
+import RetailShowcase from "./components/RetailShowcase";
+import GrowthShowcase from "./components/GrowthShowcase";
+import AIShowcase from "./components/AIShowcase";
 import { Globe, Building2, PenTool, Smartphone } from "lucide-react";
 
-const subtitleText = "Inteligência Artificial & Desenvolvimento de Elite";
+const subtitleText = "Me diga qual é a sua ideia para que um especialista possa entrar em contato com você";
 
 const typingVariants = {
   hidden: { opacity: 1 },
@@ -30,6 +35,7 @@ export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [showResponse, setShowResponse] = useState(false);
   const [responseText, setResponseText] = useState("");
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
@@ -46,8 +52,6 @@ export default function Home() {
 
   return (
     <main className="relative isolate min-h-screen overflow-x-hidden bg-[#020202] text-white">
-      {/* Cursor de brasas sutil */}
-      <EmberCursor />
       <Navbar />
 
       {/* ═══════════════ HERO ═══════════════ */}
@@ -57,49 +61,22 @@ export default function Home() {
       >
         {/* Título grande com Kerning Negativo e Gradiente */}
         <motion.h1
-          initial={{ opacity: 0, y: 15, filter: "blur(10px)" }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            textShadow: [
-              "0 0 20px rgba(255, 69, 0, 0.15)",
-              "0 0 50px rgba(255, 69, 0, 0.4)",
-              "0 0 20px rgba(255, 69, 0, 0.15)",
-            ],
-          }}
-          transition={{
-            opacity: { duration: 1.2, ease: "easeOut" },
-            y: { duration: 1.2, ease: "easeOut" },
-            filter: { duration: 1.2, ease: "easeOut" },
-            textShadow: {
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            },
-          }}
-          className="mb-6 font-sans text-5xl font-black leading-[1.05] tracking-[-0.05em] sm:text-7xl md:text-8xl lg:text-9xl relative z-10 text-ember"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-10 font-sans text-5xl font-black leading-[1.05] tracking-[-0.05em] sm:text-7xl md:text-8xl lg:text-9xl relative z-10 text-ember"
         >
           FireFozDev
         </motion.h1>
 
         {/* Subtítulo Tecnológico (Typewriter) */}
         <motion.p
-          variants={typingVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-xl text-xs sm:text-sm font-normal tracking-[0.2em] text-[#888888] uppercase mb-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+          className="max-w-4xl text-sm sm:text-base font-normal tracking-wide text-white/50 mb-16"
         >
-          {subtitleText.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              variants={charVariants}
-              style={{ display: "inline-block", whiteSpace: "pre" }}
-            >
-              {char}
-            </motion.span>
-          ))}
+          {subtitleText}
         </motion.p>
 
         {/* Chat IA Simulado */}
@@ -159,7 +136,10 @@ export default function Home() {
             transition={{ delay: 1.5, duration: 1 }}
             className="mt-14"
           >
-            <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-full p-[1px] font-semibold text-white shadow-[0_0_20px_rgba(255,69,0,0.1)] transition-transform duration-300 hover:scale-105 active:scale-95">
+            <button 
+              onClick={() => setIsFormOpen(true)}
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full p-[1px] font-semibold text-white shadow-[0_0_20px_rgba(255,69,0,0.1)] transition-transform duration-300 hover:scale-105 active:scale-95"
+            >
               {/* Spinning gradient border (Metal fluido) */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -167,7 +147,7 @@ export default function Home() {
                 className="absolute inset-[-1000%] bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,rgba(255,69,0,0.6)_50%,#000000_100%)] opacity-70 group-hover:opacity-100"
               />
               <div className="relative z-10 flex items-center gap-3 rounded-full bg-black/95 px-8 py-4 backdrop-blur-3xl transition-colors duration-500 group-hover:bg-[#0a0200]">
-                <span className="text-xs uppercase tracking-[0.15em] text-white/90">
+                <span className="text-xs uppercase tracking-[0.15em] text-white/90 font-bold">
                   Iniciar Parceria
                 </span>
                 <span className="text-orange-500 transition-transform duration-300 group-hover:translate-x-1">
@@ -179,7 +159,24 @@ export default function Home() {
         </motion.div>
       </section>
 
+      <AnimatePresence>
+        {isFormOpen && (
+          <StepForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+        )}
+      </AnimatePresence>
+
+      <TrustedBy />
+
       <PortfolioSection />
+      
+      <AppShowcase />
+      
+      <RetailShowcase />
+
+      <GrowthShowcase />
+
+      <AIShowcase />
+
       <LeadSection />
 
       {/* ═══════════════ FOOTER ═══════════════ */}

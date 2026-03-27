@@ -32,6 +32,18 @@ body {
     animation: ember-flicker 4s infinite alternate ease-in-out;
   }
 
+  /* Otimização de Performance */
+  .step-card {
+    will-change: transform, opacity;
+    contain: layout paint;
+  }
+
+  .gpu-bound {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
   .glow-border {
     position: relative;
     border: 1px solid rgba(255, 69, 0, 0.1);

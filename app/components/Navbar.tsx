@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import NextImage from "next/image";
 
 export default function Navbar() {
   return (
@@ -13,9 +14,15 @@ export default function Navbar() {
       <div className="flex w-full max-w-3xl items-center justify-between rounded-full border border-white/10 bg-[#080808]/40 px-6 py-3 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
         <a
           href="#home"
-          className="text-sm font-black tracking-[-0.05em] text-white/90"
+          className="relative h-6 w-32 transition-transform hover:scale-105 active:scale-95"
         >
-          FireFozDev
+          <NextImage 
+            src="/logo.svg" 
+            alt="FireFozDev"
+            fill
+            priority
+            className="object-contain"
+          />
         </a>
 
         <nav className="flex items-center gap-7">
